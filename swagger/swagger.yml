@@ -1,0 +1,34 @@
+swagger: "2.0"
+info:
+  title: Swagger API
+  description: 使用swagger测试爽歪歪.
+  version: 1.0.0
+  contact:
+    email: 2929712050@qq.com
+basePath: /v1
+paths:
+  /topic/topic[get]:
+    get:
+      tags:
+      - topic
+      description: get all the staticblock by key
+      operationId: MainController.getStaticBlock
+      parameters:
+      - in: path
+        name: key
+        description: The email for login
+        required: true
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.ZDTCustomer.Customer'
+        "400":
+          description: Invalid email supplied
+        "404":
+          description: User not found
+definitions:
+  models.ZDTCustomer.Customer:
+    title: Customer
+    type: object
