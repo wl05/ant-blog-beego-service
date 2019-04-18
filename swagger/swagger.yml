@@ -7,28 +7,44 @@ info:
     email: 2929712050@qq.com
 basePath: /v1
 paths:
-  /topic/topic[get]:
+  /user/:
     get:
       tags:
-      - topic
-      description: get all the staticblock by key
-      operationId: MainController.getStaticBlock
-      parameters:
-      - in: path
-        name: key
-        description: The email for login
-        required: true
-        type: string
+      - user
+      description: 获取用户列表的
       responses:
         "200":
-          description: ""
+          description: models.User.username  models.User.id models.User
           schema:
-            $ref: '#/definitions/models.ZDTCustomer.Customer'
-        "400":
-          description: Invalid email supplied
-        "404":
-          description: User not found
+            $ref: '#/definitions/models.User.id'
+    post:
+      tags:
+      - user
+      description: 创建用户
+      operationId: UserController.创建用户
+      parameters:
+      - in: formData
+        name: username
+        description: 用户名
+        required: true
+        type: string
+        default: ant
+      - in: formData
+        name: password
+        description: 密码
+        required: true
+        type: string
+        default: "123"
+      responses:
+        "200":
+          description: '{int}       models.User.id models.User.username'
+        "403":
+          description: body is empty
 definitions:
-  models.ZDTCustomer.Customer:
-    title: Customer
+  models.User.id:
+    title: id
     type: object
+tags:
+- name: user
+  description: |
+    Operations about User

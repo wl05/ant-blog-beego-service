@@ -12,5 +12,5 @@ type Article struct {
 }
 
 func (m *Article) TableName() string {
-	return TableName("article")
+	return "article"
 }

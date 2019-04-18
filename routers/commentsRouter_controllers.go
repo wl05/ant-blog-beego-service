@@ -7,19 +7,19 @@ import (
 
 func init() {
 
-    beego.GlobalControllerRouter["ant-blog-beego-service/controllers:MainController"] = append(beego.GlobalControllerRouter["ant-blog-beego-service/controllers:MainController"],
+    beego.GlobalControllerRouter["ant-blog-beego-service/controllers:UserController"] = append(beego.GlobalControllerRouter["ant-blog-beego-service/controllers:UserController"],
         beego.ControllerComments{
-            Method: "GetTopic",
-            Router: `/topic[get]`,
-            AllowHTTPMethods: []string{"get"},
+            Method: "CreateUser",
+            Router: `/`,
+            AllowHTTPMethods: []string{"post"},
             MethodParams: param.Make(),
             Filters: nil,
             Params: nil})
 
     beego.GlobalControllerRouter["ant-blog-beego-service/controllers:UserController"] = append(beego.GlobalControllerRouter["ant-blog-beego-service/controllers:UserController"],
         beego.ControllerComments{
-            Method: "GetTopic",
-            Router: `/topic[get]`,
+            Method: "GetUser",
+            Router: `/`,
             AllowHTTPMethods: []string{"get"},
             MethodParams: param.Make(),
             Filters: nil,
