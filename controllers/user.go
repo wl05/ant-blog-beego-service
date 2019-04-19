@@ -2,16 +2,15 @@ package controllers
 
 import (
 	"ant-blog-beego-service/common/consts"
-	"ant-blog-beego-service/models"
-	"github.com/astaxie/beego"
-	"github.com/astaxie/beego/orm"
 	"ant-blog-beego-service/common/utils"
+	"ant-blog-beego-service/models"
+	"github.com/astaxie/beego/orm"
 	"strings"
 )
 
 // Operations about User
 type UserController struct {
-	beego.Controller
+	BaseController
 }
 
 func (c *UserController) URLMapping() {

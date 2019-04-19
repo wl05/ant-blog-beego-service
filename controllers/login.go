@@ -6,6 +6,7 @@ import (
 	"ant-blog-beego-service/models"
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
+	"strconv"
 	"strings"
 )
 
@@ -56,7 +57,8 @@ func (this *LoginController) Login() {
 		this.ServeJSON()
 		return
 	}
-	token, err := models.CreateToken(user.Id, this.Ctx.Request.RemoteAddr, this.Ctx.Request.UserAgent())
+	ip := this.Ctx.Input.IP() + ":" + strconv.Itoa(this.Ctx.Input.Port())
+	token, err := models.CreateToken(user.Id, ip, this.Ctx.Request.UserAgent())
 	this.Ctx.SetCookie("token", token, 24*60*60, "/") // 设置cookie
 	this.Data["json"] = map[string]interface{}{
 		"code": consts.SUCCECC,

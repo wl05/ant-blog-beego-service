@@ -56,4 +56,3 @@ ALTER TABLE `article` ADD CONSTRAINT `fk_articles_articles_3` FOREIGN KEY (`user
 ALTER TABLE `tokens` ADD CONSTRAINT `fk_tokens` FOREIGN KEY (`userId`) REFERENCES `user` (`id`);
 ALTER TABLE `tag` ADD CONSTRAINT `fk_tag` FOREIGN KEY (`articleId`) REFERENCES `article` (`id`);
 ALTER TABLE `category` ADD CONSTRAINT `fk_category` FOREIGN KEY (`articleId`) REFERENCES `article` (`id`);
-

@@ -26,11 +26,31 @@ func CreateToken(UserId int, Ip string, UserAgent string) (t string, err error) 
 	var token Token
 	token.UserId = UserId
 	token.Token = utils.RandSeq(20)
-	d, err := time.ParseDuration("1d")
+	d, err := time.ParseDuration("24h")
 	token.Expired = time.Now().Add(d)
 	token.LoginAt = time.Now()
 	token.Ip = Ip
 	token.UserAgent = UserAgent
 	_, err = o.Insert(&token)
 	return token.Token, err
+}
+
+func GetTokenByTokenIpUa(t string, ip string, ua string) (token Token, err error) {
+	DB := orm.NewOrm()
+	var r0 orm.RawSeter
+	DB.Using("default")
+	r0 = DB.Raw("SELECT * FROM tokens WHERE token = ? and ip = ? and userAgent = ?", t, ip, ua)
+	var _token Token
+	_err := r0.QueryRow(&_token)
+	return _token, _err
+}
+
+func DeleteTokenByToken(_token string) (token Token, err error) {
+	DB := orm.NewOrm()
+	var r0 orm.RawSeter
+	DB.Using("default")
+	r0 = DB.Raw("DELETE FROM tokens WHERE token = ?", _token)
+	var t Token
+	_err := r0.QueryRow(&t)
+	return t, _err
 }
