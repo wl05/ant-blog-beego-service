@@ -22,7 +22,7 @@ func main() {
 }
 func init() {
 	// 注册数据驱动
-	// orm.RegisterDriver("mysql", orm.DR_MySQL)
+	orm.RegisterDriver("mysql", orm.DRMySQL)
 	// mysql / sqlite3 / postgres 这三种是默认已经注册过的，所以可以无需设置
 	// 注册数据库 ORM 必须注册一个别名为 default 的数据库，作为默认使用
 	orm.RegisterDataBase("default", "mysql", "root:wl19940521@/ant-blog?charset=utf8")

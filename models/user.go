@@ -1,7 +1,6 @@
 package models
 
 import (
-	"fmt"
 	"github.com/astaxie/beego/orm"
 )
 
@@ -15,36 +14,29 @@ func (m *User) TableName() string {
 	return "user"
 }
 
-func AddUser(m *User) (id int64, err error) {
-	fmt.Println(m)
+func AddUser(username string, password string) (id int64, err error) {
 	o := orm.NewOrm()
 	o.Using("default")
-	id, err = o.Insert(m)
+	var user User
+	user.Username = username
+	user.Password = password
+	id, err = o.Insert(&user)
 	return
 }
 
-func GetUser() []User {
-	var _user []User
+func GetUser() (user []User, err error) {
+	var users []User
 	o := orm.NewOrm()
-	o.Using("default")
-	err := o.Raw("SELECT * FROM user").QueryRow(&_user)
-	if err == nil {
-		fmt.Println("出错了")
-		return _user
-	} else {
-		return _user
-	}
+	_, _err := o.QueryTable("user").All(&users, "Id", "Username")
+	return users, _err
 }
 
-func GetUserByUsername(username string) User {
+func GetUserByUsername(username string) (user User, err error) {
+	DB := orm.NewOrm()
+	var r0 orm.RawSeter
+	DB.Using("default")
+	r0 = DB.Raw("SELECT * FROM user WHERE username = ?", username)
 	var _user User
-	o := orm.NewOrm()
-	o.Using("default")
-	err := o.Raw("SELECT * FROM user WHERE username = ?", username).QueryRow(&_user)
-	if err == nil {
-		fmt.Println("出错了")
-		return _user
-	} else {
-		return _user
-	}
+	_err := r0.QueryRow(&_user)
+	return _user, _err
 }

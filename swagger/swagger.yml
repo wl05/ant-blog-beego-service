@@ -7,6 +7,96 @@ info:
     email: 2929712050@qq.com
 basePath: /v1
 paths:
+  /article/:
+    post:
+      tags:
+      - login
+      description: 发布文章
+      operationId: ArticleController.发布文章
+      parameters:
+      - in: formData
+        name: title
+        description: 文章标题
+        required: true
+        type: string
+        default: hello world
+      - in: formData
+        name: userId
+        description: 用户id
+        required: true
+        type: integer
+        format: int64
+        default: "0"
+      - in: formData
+        name: content
+        description: 文章内容
+        required: true
+        type: string
+        default: hello wordl content
+      - in: formData
+        name: publishAt
+        description: 发布日期
+        required: true
+        schema:
+          $ref: '#/definitions/date'
+        default: ""
+      - in: formData
+        name: viewCount
+        description: 浏览次数
+        required: true
+        type: integer
+        format: int64
+        default: "100"
+      responses:
+        "200":
+          description: '{int}'
+        "403":
+          description: body is empty
+  /login/:
+    post:
+      tags:
+      - login
+      description: 发布文章
+      operationId: ArticleController.发布文章
+      parameters:
+      - in: formData
+        name: title
+        description: 文章标题
+        required: true
+        type: string
+        default: hello world
+      - in: formData
+        name: userId
+        description: 用户id
+        required: true
+        type: integer
+        format: int64
+        default: "0"
+      - in: formData
+        name: content
+        description: 文章内容
+        required: true
+        type: string
+        default: hello wordl content
+      - in: formData
+        name: publishAt
+        description: 发布日期
+        required: true
+        schema:
+          $ref: '#/definitions/date'
+        default: ""
+      - in: formData
+        name: viewCount
+        description: 浏览次数
+        required: true
+        type: integer
+        format: int64
+        default: "100"
+      responses:
+        "200":
+          description: '{int}'
+        "403":
+          description: body is empty
   /user/:
     get:
       tags:
@@ -14,9 +104,11 @@ paths:
       description: 获取用户列表的
       responses:
         "200":
-          description: models.User.username  models.User.id models.User
-          schema:
-            $ref: '#/definitions/models.User.id'
+          description: 请求成功
+        "1101":
+          description: 外部传入参数错误
+        "1102":
+          description: 请求出错
     post:
       tags:
       - user
@@ -37,14 +129,22 @@ paths:
         default: "123"
       responses:
         "200":
-          description: '{int}       models.User.id models.User.username'
-        "403":
-          description: body is empty
+          description: 请求成功
+        "1101":
+          description: 外部传入参数错误
+        "1102":
+          description: 请求出错
 definitions:
-  models.User.id:
-    title: id
+  date:
+    title: date
     type: object
 tags:
 - name: user
   description: |
     Operations about User
+- name: article
+  description: |
+    Operations about Article
+- name: login
+  description: |
+    Operations about Article

@@ -4,6 +4,8 @@ import (
 	"ant-blog-beego-service/common/consts"
 	"ant-blog-beego-service/models"
 	"github.com/astaxie/beego"
+	"github.com/astaxie/beego/orm"
+	"ant-blog-beego-service/common/utils"
 	"strings"
 )
 
@@ -20,26 +22,39 @@ func (c *UserController) URLMapping() {
 // @Description 创建用户
 // @Param   username    formData    string  "ant"  true    "用户名"
 // @Param   password    formData    string  "123"    true    "密码"
-// @Success 200     {int}       models.User.id models.User.username
-// @Failure 403     body is empty
+// @Success 200 请求成功
+// @Success 1101   外部传入参数错误
+// @Success 1102   请求出错
 // @router / [post]
 func (this *UserController) CreateUser() {
 	username := this.GetString("username")
 	password := this.GetString("password")
 	if strings.TrimSpace(username) == "" || strings.TrimSpace(password) == "" {
 		this.Data["json"] = map[string]interface{}{
-			"code": consts.ERROR_CODE__SOURCE_DATA__ILLEGAL,
-			"msg":  consts.ERROR_DES__SOURCE_DATA__ILLEGAL,
+			"code": consts.ERROR_CODE_PARAMETER_ILLEGAL,
+			"msg":  consts.ERROR_DES_PARAMETER_ILLEGAL,
 		}
 		this.ServeJSON()
 		return
 	}
-	user := &models.User{}
-	user.Username = username
-	user.Password = password
-	id, err := models.AddUser(user)
-	if err == nil {
+	_, err := models.GetUserByUsername(username)
+	if err != orm.ErrNoRows {
+		this.Data["json"] = map[string]interface{}{
+			"code": consts.ERROR_CODE_USER_EXIST,
+			"msg":  consts.ERROR_DES_USER_EXIST,
+		}
+		this.ServeJSON()
+		return
+	}
 
+	id, err := models.AddUser(username, utils.Crypto(password))
+	if err != nil {
+		this.Data["json"] = map[string]interface{}{
+			"code": consts.ERROR_CODE_REQUEST,
+			"msg":  consts.ERROR_DES_REQUEST,
+		}
+		this.ServeJSON()
+		return
 	}
 
 	this.Data["json"] = map[string]interface{}{
@@ -53,13 +68,23 @@ func (this *UserController) CreateUser() {
 
 // @获取用户列表
 // @Description 获取用户列表的
-// @Success 200 {object}  models.User.id models.User.username  models.User.id models.User
+// @Success 200 请求成功
+// @Success 1101   外部传入参数错误
+// @Success 1102   请求出错
 // @router / [get]
 func (this *UserController) GetUser() {
+	users, err := models.GetUser()
+	if err != nil {
+		this.Data["json"] = map[string]interface{}{
+			"code": consts.ERROR_CODE_REQUEST,
+			"msg":  consts.ERROR_DES_REQUEST,
+		}
+		this.ServeJSON()
+		return
+	}
 	this.Data["json"] = map[string]interface{}{
 		"code": consts.SUCCECC,
-		"msg":  "",
-		"data": models.GetUser(),
+		"data": users,
 	}
 	this.ServeJSON()
 	return
