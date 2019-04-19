@@ -47,7 +47,7 @@ func (this *UserController) CreateUser() {
 		return
 	}
 
-	id, err := models.AddUser(username, utils.Crypto(password))
+	_, err = models.AddUser(username, utils.Crypto(password))
 	if err != nil {
 		this.Data["json"] = map[string]interface{}{
 			"code": consts.ERROR_CODE_REQUEST,
@@ -60,7 +60,6 @@ func (this *UserController) CreateUser() {
 	this.Data["json"] = map[string]interface{}{
 		"code": consts.SUCCECC,
 		"msg":  "创建成功",
-		"data": id,
 	}
 	this.ServeJSON()
 	return

@@ -17,14 +17,9 @@ func init() {
 					&controllers.UserController{},
 				),
 			),
-			beego.NSNamespace("/article",
-				beego.NSInclude(
-					&controllers.ArticleController{},
-				),
-			),
 			beego.NSNamespace("/login",
 				beego.NSInclude(
-					&controllers.ArticleController{},
+					&controllers.LoginController{},
 				),
 			),
 		)

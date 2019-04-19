@@ -28,6 +28,7 @@ func init() {
 	orm.RegisterDataBase("default", "mysql", "root:wl19940521@/ant-blog?charset=utf8")
 	// 注册模型
 	orm.RegisterModel(new(models.User))
+	orm.RegisterModel(new(models.Token))
 	// 自动创建表 参数二为是否开启创建表   参数三是否更新表
 	orm.RunSyncdb("default", true, true)
 }

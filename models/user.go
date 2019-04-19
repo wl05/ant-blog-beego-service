@@ -5,7 +5,7 @@ import (
 )
 
 type User struct {
-	Id       int64  `orm:"column(id);auto" description:"数据库id" json:"id"`
+	Id       int  `orm:"column(id);auto" description:"数据库id" json:"id"`
 	Username string `orm:"column(username);size(20)" description:"用户名" json:"username"`
 	Password string `orm:"column(password);size(32)" description:"密码" json:"password"`
 }
@@ -14,13 +14,13 @@ func (m *User) TableName() string {
 	return "user"
 }
 
-func AddUser(username string, password string) (id int64, err error) {
+func AddUser(username string, password string) (id int,err error) {
 	o := orm.NewOrm()
 	o.Using("default")
 	var user User
 	user.Username = username
 	user.Password = password
-	id, err = o.Insert(&user)
+	_, err = o.Insert(&user)
 	return
 }
 

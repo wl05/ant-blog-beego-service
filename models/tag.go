@@ -1,9 +1,9 @@
 package models
 
 type Tag struct {
-	id        int
-	tagName   string
-	articleId int
+	Id        int
+	TagName   string
+	ArticleId int64
 }
 
 func (m *Tag) TableName() string {

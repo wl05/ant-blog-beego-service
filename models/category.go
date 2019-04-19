@@ -1,9 +1,9 @@
 package models
 
 type Category struct {
-	id           int
-	categoryName string
-	articleId    int
+	Id           int
+	CategoryName string
+	ArticleId    int
 }
 
 func (m *Category) TableName() string {
