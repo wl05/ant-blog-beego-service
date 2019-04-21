@@ -22,6 +22,11 @@ func init() {
 					&controllers.TagController{},
 				),
 			),
+			beego.NSNamespace("/category",
+				beego.NSInclude(
+					&controllers.CategoryController{},
+				),
+			),
 			beego.NSNamespace("/login",
 				beego.NSInclude(
 					&controllers.LoginController{},

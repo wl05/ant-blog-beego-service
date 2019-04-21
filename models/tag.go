@@ -29,18 +29,17 @@ func GetTags() (tags []Tag, err error) {
 
 func GetTagByTagName(tagName string) (tag Tag, err error) {
 	DB := orm.NewOrm()
-	var r0 orm.RawSeter
 	DB.Using("default")
-	r0 = DB.Raw("SELECT * FROM tag WHERE tagName = ?", tagName)
+	act := DB.Raw("SELECT * FROM tag WHERE tagName = ?", tagName)
 	var _tag Tag
-	_err := r0.QueryRow(&_tag)
+	_err := act.QueryRow(&_tag)
 	return _tag, _err
 }
 func UpdateTagByTagId(id int, tagName string) (num int64, err error) {
 	DB := orm.NewOrm()
 	var act orm.RawSeter
 	DB.Using("default")
-	act = DB.Raw("UPDATE tag SET tagName = ? where id = ?", tagName, id)
+	act = DB.Raw("UPDATE tag SET tagName = ? WHERE id = ?", tagName, id)
 	res, _err := act.Exec()
 	_num, _ := res.RowsAffected()
 	return _num, _err

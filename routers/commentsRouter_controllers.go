@@ -16,6 +16,33 @@ func init() {
             Filters: nil,
             Params: nil})
 
+    beego.GlobalControllerRouter["ant-blog-beego-service/controllers:CategoryController"] = append(beego.GlobalControllerRouter["ant-blog-beego-service/controllers:CategoryController"],
+        beego.ControllerComments{
+            Method: "AddCategory",
+            Router: `/`,
+            AllowHTTPMethods: []string{"post"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
+    beego.GlobalControllerRouter["ant-blog-beego-service/controllers:CategoryController"] = append(beego.GlobalControllerRouter["ant-blog-beego-service/controllers:CategoryController"],
+        beego.ControllerComments{
+            Method: "GetCategories",
+            Router: `/`,
+            AllowHTTPMethods: []string{"get"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
+    beego.GlobalControllerRouter["ant-blog-beego-service/controllers:CategoryController"] = append(beego.GlobalControllerRouter["ant-blog-beego-service/controllers:CategoryController"],
+        beego.ControllerComments{
+            Method: "UpdateCategoryByCategoryId",
+            Router: `/:id`,
+            AllowHTTPMethods: []string{"put"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
     beego.GlobalControllerRouter["ant-blog-beego-service/controllers:LoginController"] = append(beego.GlobalControllerRouter["ant-blog-beego-service/controllers:LoginController"],
         beego.ControllerComments{
             Method: "Login",
