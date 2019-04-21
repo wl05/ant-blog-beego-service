@@ -15,6 +15,8 @@ type UserController struct {
 
 func (c *UserController) URLMapping() {
 	c.Mapping("CreateUser", c.CreateUser)
+	c.Mapping("GetUsers", c.GetUsers)
+	c.Mapping("UpdateTagByUserId", c.UpdateTagByUserId)
 }
 
 // @Title 创建用户
@@ -24,6 +26,7 @@ func (c *UserController) URLMapping() {
 // @Success 200 请求成功
 // @Success 1101   外部传入参数错误
 // @Success 1102   请求出错
+// @Success 1103   用户名已存在
 // @router / [post]
 func (this *UserController) CreateUser() {
 	username := this.GetString("username")
@@ -70,8 +73,8 @@ func (this *UserController) CreateUser() {
 // @Success 1101   外部传入参数错误
 // @Success 1102   请求出错
 // @router / [get]
-func (this *UserController) GetUser() {
-	users, err := models.GetUser()
+func (this *UserController) GetUsers() {
+	users, err := models.GetUsers()
 	if err != nil {
 		this.Data["json"] = map[string]interface{}{
 			"code": consts.ERROR_CODE_REQUEST,
@@ -83,6 +86,55 @@ func (this *UserController) GetUser() {
 	this.Data["json"] = map[string]interface{}{
 		"code": consts.SUCCECC,
 		"data": users,
+	}
+	this.ServeJSON()
+	return
+}
+
+// @Title 更新用户信息
+// @Description 更新用户信息
+// @Param   id    path    string  "1"  true    "用户id"
+// @Param   username    formData    string  "ant"  true    "用户名"
+// @Success 200 请求成功
+// @Success 1101   外部传入参数错误
+// @Success 1102   请求出错
+// @Success 1103   用户名已存在
+// @router /:id [put]
+func (this *UserController) UpdateTagByUserId() {
+	id, _ := this.GetInt(":id")
+	username := this.GetString("username")
+
+	if strings.TrimSpace(username) == "" {
+		this.Data["json"] = map[string]interface{}{
+			"code": consts.ERROR_CODE_PARAMETER_ILLEGAL,
+			"msg":  consts.ERROR_DES_PARAMETER_ILLEGAL,
+		}
+		this.ServeJSON()
+		return
+	}
+	_, err := models.GetUserByUsername(username)
+	if err != orm.ErrNoRows {
+		this.Data["json"] = map[string]interface{}{
+			"code": consts.ERROR_CODE_USER_EXIST,
+			"msg":  consts.ERROR_DES_USER_EXIST,
+		}
+		this.ServeJSON()
+		return
+	}
+
+	num, err := models.UpdateTagByUserId(id, username)
+	if err != nil || num == 0 {
+		this.Data["json"] = map[string]interface{}{
+			"code": consts.ERROR_CODE_REQUEST,
+			"msg":  consts.ERROR_DES_REQUEST,
+		}
+		this.ServeJSON()
+		return
+	}
+
+	this.Data["json"] = map[string]interface{}{
+		"code": consts.SUCCECC,
+		"msg":  "更新成功",
 	}
 	this.ServeJSON()
 	return

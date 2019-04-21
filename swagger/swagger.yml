@@ -37,6 +37,80 @@ paths:
           description: 用户名不存在
         "1105":
           description: 用户名或者密码错误
+  /logout/:
+    post:
+      tags:
+      - logout
+      description: 用户登出
+      operationId: LogoutController.用户登出
+      responses:
+        "200":
+          description: 登录成功
+        "1101":
+          description: 参数错误
+        "1102":
+          description: 请求出错
+  /tag/:
+    get:
+      tags:
+      - tag
+      description: 获取标签列表
+      responses:
+        "200":
+          description: 请求成功
+        "1101":
+          description: 外部传入参数错误
+        "1102":
+          description: 请求出错
+    post:
+      tags:
+      - tag
+      description: 创建标签
+      operationId: TagController.创建标签
+      parameters:
+      - in: formData
+        name: tagName
+        description: 标签名字
+        required: true
+        type: string
+        default: javascript
+      responses:
+        "200":
+          description: 请求成功
+        "1101":
+          description: 外部传入参数错误
+        "1102":
+          description: 请求出错
+        "1108":
+          description: 标签名已存在
+  /tag/{id}:
+    put:
+      tags:
+      - tag
+      description: 更新标签
+      operationId: TagController.更新标签
+      parameters:
+      - in: path
+        name: id
+        description: 标签id
+        required: true
+        type: string
+        default: 标签id
+      - in: formData
+        name: tagName
+        description: 标签名字
+        required: true
+        type: string
+        default: javascript
+      responses:
+        "200":
+          description: 请求成功
+        "1101":
+          description: 外部传入参数错误
+        "1102":
+          description: 请求出错
+        "1108":
+          description: 标签名已存在
   /user/:
     get:
       tags:
@@ -74,6 +148,36 @@ paths:
           description: 外部传入参数错误
         "1102":
           description: 请求出错
+        "1103":
+          description: 用户名已存在
+  /user/{id}:
+    put:
+      tags:
+      - user
+      description: 更新用户信息
+      operationId: UserController.更新用户信息
+      parameters:
+      - in: path
+        name: id
+        description: 用户id
+        required: true
+        type: string
+        default: "1"
+      - in: formData
+        name: username
+        description: 用户名
+        required: true
+        type: string
+        default: ant
+      responses:
+        "200":
+          description: 请求成功
+        "1101":
+          description: 外部传入参数错误
+        "1102":
+          description: 请求出错
+        "1103":
+          description: 用户名已存在
 definitions:
   date:
     title: date
@@ -82,6 +186,12 @@ tags:
 - name: user
   description: |
     Operations about User
+- name: tag
+  description: |
+    Operations about Tag
 - name: login
   description: |
-    Operations about User
+    Operations about Logout
+- name: logout
+  description: |
+    Operations about Logout

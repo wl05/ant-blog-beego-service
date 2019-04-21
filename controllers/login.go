@@ -10,7 +10,7 @@ import (
 	"strings"
 )
 
-// Operations about User
+// Operations about Logout
 type LoginController struct {
 	beego.Controller
 }

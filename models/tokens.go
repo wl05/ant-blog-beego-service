@@ -37,20 +37,18 @@ func CreateToken(UserId int, Ip string, UserAgent string) (t string, err error) 
 
 func GetTokenByTokenIpUa(t string, ip string, ua string) (token Token, err error) {
 	DB := orm.NewOrm()
-	var r0 orm.RawSeter
 	DB.Using("default")
-	r0 = DB.Raw("SELECT * FROM tokens WHERE token = ? and ip = ? and userAgent = ?", t, ip, ua)
+	act := DB.Raw("SELECT * FROM tokens WHERE token = ? and ip = ? and userAgent = ?", t, ip, ua)
 	var _token Token
-	_err := r0.QueryRow(&_token)
+	_err := act.QueryRow(&_token)
 	return _token, _err
 }
 
-func DeleteTokenByToken(_token string) (token Token, err error) {
+func DeleteTokenByToken(_token string) (num int64, err error) {
 	DB := orm.NewOrm()
-	var r0 orm.RawSeter
 	DB.Using("default")
-	r0 = DB.Raw("DELETE FROM tokens WHERE token = ?", _token)
-	var t Token
-	_err := r0.QueryRow(&t)
-	return t, _err
+	act := DB.Raw("DELETE FROM tokens WHERE token = ?", _token)
+	res, _err := act.Exec()
+	_num, _ := res.RowsAffected()
+	return _num, _err
 }

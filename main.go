@@ -28,6 +28,9 @@ func init() {
 	// 注册模型
 	orm.RegisterModel(new(models.User))
 	orm.RegisterModel(new(models.Token))
+	orm.RegisterModel(new(models.Tag))
+	orm.RegisterModel(new(models.Article))
+	orm.RegisterModel(new(models.Category))
 	// 自动创建表 参数二为是否开启创建表   参数三是否更新表
 	orm.RunSyncdb("default", true, true)
 }

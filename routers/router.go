@@ -17,9 +17,19 @@ func init() {
 					&controllers.UserController{},
 				),
 			),
+			beego.NSNamespace("/tag",
+				beego.NSInclude(
+					&controllers.TagController{},
+				),
+			),
 			beego.NSNamespace("/login",
 				beego.NSInclude(
 					&controllers.LoginController{},
+				),
+			),
+			beego.NSNamespace("/logout",
+				beego.NSInclude(
+					&controllers.LogoutController{},
 				),
 			),
 		)
