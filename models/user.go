@@ -39,11 +39,11 @@ func GetUserByUsername(username string) (user User, err error) {
 	_err := act.QueryRow(&_user)
 	return _user, _err
 }
-func UpdateTagByUserId(id int, username string) (num int64, err error) {
+func UpdateTagByUserId(id int, username string, password string) (num int64, err error) {
 	DB := orm.NewOrm()
 	var act orm.RawSeter
 	DB.Using("default")
-	act = DB.Raw("UPDATE user SET username = ? where id = ?", username, id)
+	act = DB.Raw("UPDATE user SET username = ?,password = ? where id = ?", username, password, id)
 	res, _err := act.Exec()
 	_num, _ := res.RowsAffected()
 	return _num, _err

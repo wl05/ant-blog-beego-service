@@ -1,15 +1,15 @@
--- ALTER TABLE `tokens` DROP FOREIGN KEY `fk_tokens`;
--- ALTER TABLE `article` DROP FOREIGN KEY `fk_article`;
--- ALTER TABLE `article` DROP FOREIGN KEY `fk_article_1`;
--- ALTER TABLE `article` DROP FOREIGN KEY `fk_article_2`;
+ALTER TABLE `tokens` DROP FOREIGN KEY `fk_tokens`;
+ALTER TABLE `article` DROP FOREIGN KEY `fk_article`;
+ALTER TABLE `article` DROP FOREIGN KEY `fk_article_1`;
+ALTER TABLE `article` DROP FOREIGN KEY `fk_article_2`;
 
--- DROP INDEX `artilceIdIndex` ON `article`;
+DROP INDEX `artilceIdIndex` ON `article`;
 
--- DROP TABLE `article`;
--- DROP TABLE `tag`;
--- DROP TABLE `category`;
--- DROP TABLE `user`;
--- DROP TABLE `tokens`;
+DROP TABLE `article`;
+DROP TABLE `tag`;
+DROP TABLE `category`;
+DROP TABLE `user`;
+DROP TABLE `tokens`;
 
 CREATE TABLE `article` (
                          `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -22,26 +22,26 @@ CREATE TABLE `article` (
                          `tagId` int(11) NOT NULL,
                          PRIMARY KEY (`id`) ,
                          UNIQUE INDEX `artilceIdIndex` (`id` ASC)
-);
+) DEFAULT CHARSET=utf8;
 
 CREATE TABLE `tag` (
                      `id` int(11) NOT NULL AUTO_INCREMENT,
                      `tagName` varchar(255) NOT NULL,
                      PRIMARY KEY (`id`)
-);
+) DEFAULT CHARSET=utf8;
 
 CREATE TABLE `category` (
                           `id` int(11) NOT NULL AUTO_INCREMENT,
                           `categoryName` varchar(255) NOT NULL,
                           PRIMARY KEY (`id`)
-);
+) DEFAULT CHARSET=utf8;
 
 CREATE TABLE `user` (
                       `id` int(11) NOT NULL AUTO_INCREMENT,
                       `username` varchar(255) NOT NULL,
                       `password` varchar(255) NULL,
                       PRIMARY KEY (`id`)
-);
+) DEFAULT CHARSET=utf8;
 
 CREATE TABLE `tokens` (
                         `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -52,7 +52,7 @@ CREATE TABLE `tokens` (
                         `ip` varchar(255) NULL,
                         `userAgent` varchar(255) NULL,
                         PRIMARY KEY (`id`)
-);
+) DEFAULT CHARSET=utf8;
 
 
 ALTER TABLE `tokens` ADD CONSTRAINT `fk_tokens` FOREIGN KEY (`userId`) REFERENCES `user` (`id`);

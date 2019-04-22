@@ -4,13 +4,15 @@ import (
 	"ant-blog-beego-service/common/consts"
 	"ant-blog-beego-service/common/utils"
 	"ant-blog-beego-service/models"
+	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
 	"strings"
 )
 
 // Operations about User
 type UserController struct {
-	BaseController
+	//BaseController
+	beego.Controller
 }
 
 func (c *UserController) URLMapping() {
@@ -103,8 +105,9 @@ func (this *UserController) GetUsers() {
 func (this *UserController) UpdateTagByUserId() {
 	id, _ := this.GetInt(":id")
 	username := this.GetString("username")
+	password := this.GetString("password")
 
-	if strings.TrimSpace(username) == "" {
+	if strings.TrimSpace(username) == "" || strings.TrimSpace(password) == "" {
 		this.Data["json"] = map[string]interface{}{
 			"code": consts.ERROR_CODE_PARAMETER_ILLEGAL,
 			"msg":  consts.ERROR_DES_PARAMETER_ILLEGAL,
@@ -122,7 +125,7 @@ func (this *UserController) UpdateTagByUserId() {
 		return
 	}
 
-	num, err := models.UpdateTagByUserId(id, username)
+	num, err := models.UpdateTagByUserId(id, username, utils.Crypto(password))
 	if err != nil || num == 0 {
 		this.Data["json"] = map[string]interface{}{
 			"code": consts.ERROR_CODE_REQUEST,
