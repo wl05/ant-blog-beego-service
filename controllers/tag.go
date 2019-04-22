@@ -17,6 +17,7 @@ func (c *TagController) URLMapping() {
 	c.Mapping("GetTags", c.GetTags)
 	c.Mapping("UpdateTagByTagId", c.UpdateTagByTagId)
 	c.Mapping("GetTag", c.GetTag)
+	c.Mapping("DeleteTagById", c.DeleteTagById)
 }
 
 // @Title 创建标签
@@ -157,6 +158,31 @@ func (this *TagController) UpdateTagByTagId() {
 	this.Data["json"] = map[string]interface{}{
 		"code": consts.SUCCECC,
 		"msg":  "更新成功",
+	}
+	this.ServeJSON()
+	return
+}
+
+// @删除标签
+// @Description 删除标签
+// @Success 200 请求成功
+// @Success 1101   外部传入参数错误
+// @Success 1102   请求出错
+// @router /:id [delete]
+func (this *TagController) DeleteTagById() {
+	id, _ := this.GetInt(":id")
+	_, err := models.DeleteTagById(id)
+	if err != nil {
+		this.Data["json"] = map[string]interface{}{
+			"code": consts.ERROR_CODE_REQUEST,
+			"msg":  consts.ERROR_DES_REQUEST,
+		}
+		this.ServeJSON()
+		return
+	}
+	this.Data["json"] = map[string]interface{}{
+		"code": consts.SUCCECC,
+		"data": "删除成功",
 	}
 	this.ServeJSON()
 	return

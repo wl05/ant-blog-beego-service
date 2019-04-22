@@ -201,6 +201,17 @@ paths:
           description: 请求出错
         "1108":
           description: 标签名已存在
+    delete:
+      tags:
+      - category
+      description: 删除分类
+      responses:
+        "200":
+          description: 请求成功
+        "1101":
+          description: 外部传入参数错误
+        "1102":
+          description: 请求出错
   /login/:
     post:
       tags:
@@ -314,6 +325,17 @@ paths:
           description: 请求出错
         "1108":
           description: 标签名已存在
+    delete:
+      tags:
+      - tag
+      description: 删除标签
+      responses:
+        "200":
+          description: 请求成功
+        "1101":
+          description: 外部传入参数错误
+        "1102":
+          description: 请求出错
   /user/:
     get:
       tags:

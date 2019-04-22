@@ -286,6 +286,23 @@
                         "description": "请求成功"
                     }
                 }
+            },
+            "delete": {
+                "tags": [
+                    "category"
+                ],
+                "description": "删除分类",
+                "responses": {
+                    "1101": {
+                        "description": "外部传入参数错误"
+                    },
+                    "1102": {
+                        "description": "请求出错"
+                    },
+                    "200": {
+                        "description": "请求成功"
+                    }
+                }
             }
         },
         "/login/": {
@@ -450,6 +467,23 @@
                     },
                     "1108": {
                         "description": "标签名已存在"
+                    },
+                    "200": {
+                        "description": "请求成功"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "tag"
+                ],
+                "description": "删除标签",
+                "responses": {
+                    "1101": {
+                        "description": "外部传入参数错误"
+                    },
+                    "1102": {
+                        "description": "请求出错"
                     },
                     "200": {
                         "description": "请求成功"

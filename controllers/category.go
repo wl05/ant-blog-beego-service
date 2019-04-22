@@ -17,6 +17,7 @@ func (c *CategoryController) URLMapping() {
 	c.Mapping("GetCategories", c.GetCategories)
 	c.Mapping("UpdateCategoryByCategoryId", c.UpdateCategoryByCategoryId)
 	c.Mapping("GetCategory", c.GetCategory)
+	c.Mapping("DeleteCategoryById", c.DeleteCategoryById)
 }
 
 // @Title 创建分类
@@ -156,6 +157,31 @@ func (this *CategoryController) UpdateCategoryByCategoryId() {
 	this.Data["json"] = map[string]interface{}{
 		"code": consts.SUCCECC,
 		"msg":  "更新成功",
+	}
+	this.ServeJSON()
+	return
+}
+
+// @删除分类
+// @Description 删除分类
+// @Success 200 请求成功
+// @Success 1101   外部传入参数错误
+// @Success 1102   请求出错
+// @router /:id [delete]
+func (this *CategoryController) DeleteCategoryById() {
+	id, _ := this.GetInt(":id")
+	_, err := models.DeleteCategoryById(id)
+	if err != nil {
+		this.Data["json"] = map[string]interface{}{
+			"code": consts.ERROR_CODE_REQUEST,
+			"msg":  consts.ERROR_DES_REQUEST,
+		}
+		this.ServeJSON()
+		return
+	}
+	this.Data["json"] = map[string]interface{}{
+		"code": consts.SUCCECC,
+		"data": "删除成功",
 	}
 	this.ServeJSON()
 	return

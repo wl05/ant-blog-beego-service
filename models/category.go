@@ -51,3 +51,12 @@ func UpdateCategoryByCategoryId(id int, categoryName string) (num int64, err err
 	_num, _ := res.RowsAffected()
 	return _num, _err
 }
+
+func DeleteCategoryById(id int) (num int64, err error) {
+	DB := orm.NewOrm()
+	DB.Using("default")
+	act := DB.Raw("DELETE category,article from category LEFT JOIN article ON category.id=article.categoryId WHERE category.id=?", id)
+	res, _err := act.Exec()
+	_num, _ := res.RowsAffected()
+	return _num, _err
+}

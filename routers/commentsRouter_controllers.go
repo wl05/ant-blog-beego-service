@@ -88,6 +88,15 @@ func init() {
             Filters: nil,
             Params: nil})
 
+    beego.GlobalControllerRouter["ant-blog-beego-service/controllers:CategoryController"] = append(beego.GlobalControllerRouter["ant-blog-beego-service/controllers:CategoryController"],
+        beego.ControllerComments{
+            Method: "DeleteCategoryById",
+            Router: `/:id`,
+            AllowHTTPMethods: []string{"delete"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
     beego.GlobalControllerRouter["ant-blog-beego-service/controllers:LoginController"] = append(beego.GlobalControllerRouter["ant-blog-beego-service/controllers:LoginController"],
         beego.ControllerComments{
             Method: "Login",
@@ -138,6 +147,15 @@ func init() {
             Method: "UpdateTagByTagId",
             Router: `/:id`,
             AllowHTTPMethods: []string{"put"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
+    beego.GlobalControllerRouter["ant-blog-beego-service/controllers:TagController"] = append(beego.GlobalControllerRouter["ant-blog-beego-service/controllers:TagController"],
+        beego.ControllerComments{
+            Method: "DeleteTagById",
+            Router: `/:id`,
+            AllowHTTPMethods: []string{"delete"},
             MethodParams: param.Make(),
             Filters: nil,
             Params: nil})

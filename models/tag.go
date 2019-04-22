@@ -52,3 +52,12 @@ func UpdateTagByTagId(id int, tagName string) (num int64, err error) {
 	_num, _ := res.RowsAffected()
 	return _num, _err
 }
+
+func DeleteTagById(id int) (num int64, err error) {
+	DB := orm.NewOrm()
+	DB.Using("default")
+	act := DB.Raw("DELETE tag,article from tag LEFT JOIN article ON tag.id=article.tagId WHERE tag.id=?", id)
+	res, _err := act.Exec()
+	_num, _ := res.RowsAffected()
+	return _num, _err
+}
