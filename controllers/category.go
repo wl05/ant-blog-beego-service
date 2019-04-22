@@ -16,7 +16,7 @@ func (c *CategoryController) URLMapping() {
 	c.Mapping("AddCategory", c.AddCategory)
 	c.Mapping("GetCategories", c.GetCategories)
 	c.Mapping("UpdateCategoryByCategoryId", c.UpdateCategoryByCategoryId)
-
+	c.Mapping("GetCategory", c.GetCategory)
 }
 
 // @Title 创建分类
@@ -68,7 +68,6 @@ func (this *CategoryController) AddCategory() {
 // @获取分类列表
 // @Description 获取分类列表
 // @Success 200 请求成功
-// @Success 1101   外部传入参数错误
 // @Success 1102   请求出错
 // @router / [get]
 func (this *CategoryController) GetCategories() {
@@ -84,6 +83,30 @@ func (this *CategoryController) GetCategories() {
 	this.Data["json"] = map[string]interface{}{
 		"code": consts.SUCCECC,
 		"data": tags,
+	}
+	this.ServeJSON()
+	return
+}
+
+// @获取单个分类数据
+// @Description 获取单个分类数据
+// @Success 200 请求成功
+// @Success 1102   请求出错
+// @router /:id [get]
+func (this *CategoryController) GetCategory() {
+	id, _ := this.GetInt(":id")
+	category, err := models.GetCategoryById(id)
+	if err != nil {
+		this.Data["json"] = map[string]interface{}{
+			"code": consts.ERROR_CODE_REQUEST,
+			"msg":  consts.ERROR_DES_REQUEST,
+		}
+		this.ServeJSON()
+		return
+	}
+	this.Data["json"] = map[string]interface{}{
+		"code": consts.SUCCECC,
+		"data": category,
 	}
 	this.ServeJSON()
 	return

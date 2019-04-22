@@ -26,6 +26,14 @@ func GetCategories() (categories []Category, err error) {
 	return _categories, _err
 }
 
+func GetCategoryById(id int) (category Category, err error) {
+	var _category Category
+	o := orm.NewOrm()
+	act := o.Raw("select * from category where id = ?", id)
+	_err := act.QueryRow(&_category)
+	return _category, _err
+}
+
 func GetCategoryByCategoryName(categoryName string) (category Category, err error) {
 	DB := orm.NewOrm()
 	DB.Using("default")

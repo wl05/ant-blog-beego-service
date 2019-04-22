@@ -16,7 +16,7 @@ func (c *TagController) URLMapping() {
 	c.Mapping("AddTag", c.AddTag)
 	c.Mapping("GetTags", c.GetTags)
 	c.Mapping("UpdateTagByTagId", c.UpdateTagByTagId)
-
+	c.Mapping("GetTag", c.GetTag)
 }
 
 // @Title 创建标签
@@ -84,6 +84,30 @@ func (this *TagController) GetTags() {
 	this.Data["json"] = map[string]interface{}{
 		"code": consts.SUCCECC,
 		"data": tags,
+	}
+	this.ServeJSON()
+	return
+}
+
+// @获取单个标签
+// @Description 获取单个标签
+// @Success 200 请求成功
+// @Success 1102   请求出错
+// @router /:id [get]
+func (this *TagController) GetTag() {
+	id, _ := this.GetInt(":id")
+	tag, err := models.GetTagById(id)
+	if err != nil {
+		this.Data["json"] = map[string]interface{}{
+			"code": consts.ERROR_CODE_REQUEST,
+			"msg":  consts.ERROR_DES_REQUEST,
+		}
+		this.ServeJSON()
+		return
+	}
+	this.Data["json"] = map[string]interface{}{
+		"code": consts.SUCCECC,
+		"data": tag,
 	}
 	this.ServeJSON()
 	return

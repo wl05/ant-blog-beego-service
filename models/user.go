@@ -31,6 +31,14 @@ func GetUsers() (user []User, err error) {
 	return users, _err
 }
 
+func GetUserById(id int) (user User, err error) {
+	var _user User
+	o := orm.NewOrm()
+	act := o.Raw("select * from user where id = ?", id)
+	_err := act.QueryRow(&_user)
+	return _user, _err
+}
+
 func GetUserByUsername(username string) (user User, err error) {
 	DB := orm.NewOrm()
 	DB.Using("default")

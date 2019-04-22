@@ -9,9 +9,45 @@ func init() {
 
     beego.GlobalControllerRouter["ant-blog-beego-service/controllers:ArticleController"] = append(beego.GlobalControllerRouter["ant-blog-beego-service/controllers:ArticleController"],
         beego.ControllerComments{
-            Method: "PostArticle",
+            Method: "CreateArticle",
             Router: `/`,
             AllowHTTPMethods: []string{"post"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
+    beego.GlobalControllerRouter["ant-blog-beego-service/controllers:ArticleController"] = append(beego.GlobalControllerRouter["ant-blog-beego-service/controllers:ArticleController"],
+        beego.ControllerComments{
+            Method: "GetArticles",
+            Router: `/`,
+            AllowHTTPMethods: []string{"get"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
+    beego.GlobalControllerRouter["ant-blog-beego-service/controllers:ArticleController"] = append(beego.GlobalControllerRouter["ant-blog-beego-service/controllers:ArticleController"],
+        beego.ControllerComments{
+            Method: "GetArticle",
+            Router: `/:id`,
+            AllowHTTPMethods: []string{"get"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
+    beego.GlobalControllerRouter["ant-blog-beego-service/controllers:ArticleController"] = append(beego.GlobalControllerRouter["ant-blog-beego-service/controllers:ArticleController"],
+        beego.ControllerComments{
+            Method: "UpdateArticleByArticleId",
+            Router: `/:id`,
+            AllowHTTPMethods: []string{"put"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
+    beego.GlobalControllerRouter["ant-blog-beego-service/controllers:ArticleController"] = append(beego.GlobalControllerRouter["ant-blog-beego-service/controllers:ArticleController"],
+        beego.ControllerComments{
+            Method: "DeleteArticleById",
+            Router: `/:id`,
+            AllowHTTPMethods: []string{"get"},
             MethodParams: param.Make(),
             Filters: nil,
             Params: nil})
@@ -29,6 +65,15 @@ func init() {
         beego.ControllerComments{
             Method: "GetCategories",
             Router: `/`,
+            AllowHTTPMethods: []string{"get"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
+    beego.GlobalControllerRouter["ant-blog-beego-service/controllers:CategoryController"] = append(beego.GlobalControllerRouter["ant-blog-beego-service/controllers:CategoryController"],
+        beego.ControllerComments{
+            Method: "GetCategory",
+            Router: `/:id`,
             AllowHTTPMethods: []string{"get"},
             MethodParams: param.Make(),
             Filters: nil,
@@ -81,6 +126,15 @@ func init() {
 
     beego.GlobalControllerRouter["ant-blog-beego-service/controllers:TagController"] = append(beego.GlobalControllerRouter["ant-blog-beego-service/controllers:TagController"],
         beego.ControllerComments{
+            Method: "GetTag",
+            Router: `/:id`,
+            AllowHTTPMethods: []string{"get"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
+    beego.GlobalControllerRouter["ant-blog-beego-service/controllers:TagController"] = append(beego.GlobalControllerRouter["ant-blog-beego-service/controllers:TagController"],
+        beego.ControllerComments{
             Method: "UpdateTagByTagId",
             Router: `/:id`,
             AllowHTTPMethods: []string{"put"},
@@ -101,6 +155,15 @@ func init() {
         beego.ControllerComments{
             Method: "GetUsers",
             Router: `/`,
+            AllowHTTPMethods: []string{"get"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
+    beego.GlobalControllerRouter["ant-blog-beego-service/controllers:UserController"] = append(beego.GlobalControllerRouter["ant-blog-beego-service/controllers:UserController"],
+        beego.ControllerComments{
+            Method: "GetUser",
+            Router: `/:id`,
             AllowHTTPMethods: []string{"get"},
             MethodParams: param.Make(),
             Filters: nil,

@@ -4,21 +4,21 @@ import (
 	"ant-blog-beego-service/common/consts"
 	"ant-blog-beego-service/common/utils"
 	"ant-blog-beego-service/models"
-	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
 	"strings"
 )
 
 // Operations about User
 type UserController struct {
-	//BaseController
-	beego.Controller
+	BaseController
+	//beego.Controller
 }
 
 func (c *UserController) URLMapping() {
 	c.Mapping("CreateUser", c.CreateUser)
 	c.Mapping("GetUsers", c.GetUsers)
 	c.Mapping("UpdateTagByUserId", c.UpdateTagByUserId)
+	c.Mapping("GetUser", c.GetUser)
 }
 
 // @Title 创建用户
@@ -72,7 +72,6 @@ func (this *UserController) CreateUser() {
 // @获取用户列表
 // @Description 获取用户列表的
 // @Success 200 请求成功
-// @Success 1101   外部传入参数错误
 // @Success 1102   请求出错
 // @router / [get]
 func (this *UserController) GetUsers() {
@@ -88,6 +87,30 @@ func (this *UserController) GetUsers() {
 	this.Data["json"] = map[string]interface{}{
 		"code": consts.SUCCECC,
 		"data": users,
+	}
+	this.ServeJSON()
+	return
+}
+
+// @获取单个用户
+// @Description 获取单个用户
+// @Success 200 请求成功
+// @Success 1102   请求出错
+// @router /:id [get]
+func (this *UserController) GetUser() {
+	id, _ := this.GetInt(":id")
+	user, err := models.GetUserById(id)
+	if err != nil {
+		this.Data["json"] = map[string]interface{}{
+			"code": consts.ERROR_CODE_REQUEST,
+			"msg":  consts.ERROR_DES_REQUEST,
+		}
+		this.ServeJSON()
+		return
+	}
+	this.Data["json"] = map[string]interface{}{
+		"code": consts.SUCCECC,
+		"data": user,
 	}
 	this.ServeJSON()
 	return

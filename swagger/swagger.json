@@ -10,6 +10,182 @@
     },
     "basePath": "/v1",
     "paths": {
+        "/article/": {
+            "get": {
+                "tags": [
+                    "article"
+                ],
+                "description": "获取文章列表",
+                "responses": {
+                    "1102": {
+                        "description": "请求出错"
+                    },
+                    "200": {
+                        "description": "请求成功"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "article"
+                ],
+                "description": "发布文章",
+                "operationId": "ArticleController.发布文章",
+                "parameters": [
+                    {
+                        "in": "formData",
+                        "name": "title",
+                        "description": "文章标题",
+                        "required": true,
+                        "type": "string",
+                        "default": "hello world"
+                    },
+                    {
+                        "in": "formData",
+                        "name": "userId",
+                        "description": "用户id",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64",
+                        "default": "0"
+                    },
+                    {
+                        "in": "formData",
+                        "name": "content",
+                        "description": "文章内容",
+                        "required": true,
+                        "type": "string",
+                        "default": "hello world content"
+                    },
+                    {
+                        "in": "formData",
+                        "name": "publishAt",
+                        "description": "发布日期时间戳",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64",
+                        "default": ""
+                    },
+                    {
+                        "in": "formData",
+                        "name": "categoryId",
+                        "description": "分类id",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64",
+                        "default": ""
+                    },
+                    {
+                        "in": "formData",
+                        "name": "tagId",
+                        "description": "标签id",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64",
+                        "default": "100"
+                    }
+                ],
+                "responses": {
+                    "1101": {
+                        "description": "外部传入参数错误"
+                    },
+                    "1102": {
+                        "description": "请求出错"
+                    },
+                    "200": {
+                        "description": "请求成功"
+                    }
+                }
+            }
+        },
+        "/article/{id}": {
+            "get": {
+                "tags": [
+                    "article"
+                ],
+                "description": "删除文章",
+                "responses": {
+                    "1102": {
+                        "description": "请求出错"
+                    },
+                    "200": {
+                        "description": "请求成功"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "article"
+                ],
+                "description": "更新文章",
+                "operationId": "ArticleController.更新文章",
+                "parameters": [
+                    {
+                        "in": "formData",
+                        "name": "title",
+                        "description": "文章标题",
+                        "required": true,
+                        "type": "string",
+                        "default": "hello world"
+                    },
+                    {
+                        "in": "formData",
+                        "name": "userId",
+                        "description": "用户id",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64",
+                        "default": "0"
+                    },
+                    {
+                        "in": "formData",
+                        "name": "content",
+                        "description": "文章内容",
+                        "required": true,
+                        "type": "string",
+                        "default": "hello world content"
+                    },
+                    {
+                        "in": "formData",
+                        "name": "publishAt",
+                        "description": "发布日期时间戳",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64",
+                        "default": ""
+                    },
+                    {
+                        "in": "formData",
+                        "name": "categoryId",
+                        "description": "分类id",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64",
+                        "default": ""
+                    },
+                    {
+                        "in": "formData",
+                        "name": "tagId",
+                        "description": "标签id",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64",
+                        "default": "100"
+                    }
+                ],
+                "responses": {
+                    "1101": {
+                        "description": "外部传入参数错误"
+                    },
+                    "1102": {
+                        "description": "请求出错"
+                    },
+                    "200": {
+                        "description": "请求成功"
+                    }
+                }
+            }
+        },
         "/category/": {
             "get": {
                 "tags": [
@@ -17,9 +193,6 @@
                 ],
                 "description": "获取分类列表",
                 "responses": {
-                    "1101": {
-                        "description": "外部传入参数错误"
-                    },
                     "1102": {
                         "description": "请求出错"
                     },
@@ -61,6 +234,20 @@
             }
         },
         "/category/{id}": {
+            "get": {
+                "tags": [
+                    "category"
+                ],
+                "description": "获取单个分类数据",
+                "responses": {
+                    "1102": {
+                        "description": "请求出错"
+                    },
+                    "200": {
+                        "description": "请求成功"
+                    }
+                }
+            },
             "put": {
                 "tags": [
                     "category"
@@ -216,6 +403,20 @@
             }
         },
         "/tag/{id}": {
+            "get": {
+                "tags": [
+                    "tag"
+                ],
+                "description": "获取单个标签",
+                "responses": {
+                    "1102": {
+                        "description": "请求出错"
+                    },
+                    "200": {
+                        "description": "请求成功"
+                    }
+                }
+            },
             "put": {
                 "tags": [
                     "tag"
@@ -263,9 +464,6 @@
                 ],
                 "description": "获取用户列表的",
                 "responses": {
-                    "1101": {
-                        "description": "外部传入参数错误"
-                    },
                     "1102": {
                         "description": "请求出错"
                     },
@@ -315,6 +513,20 @@
             }
         },
         "/user/{id}": {
+            "get": {
+                "tags": [
+                    "user"
+                ],
+                "description": "获取单个用户",
+                "responses": {
+                    "1102": {
+                        "description": "请求出错"
+                    },
+                    "200": {
+                        "description": "请求成功"
+                    }
+                }
+            },
             "put": {
                 "tags": [
                     "user"
@@ -356,12 +568,6 @@
             }
         }
     },
-    "definitions": {
-        "date": {
-            "title": "date",
-            "type": "object"
-        }
-    },
     "tags": [
         {
             "name": "user",
@@ -374,6 +580,10 @@
         {
             "name": "category",
             "description": "Operations about Category\n"
+        },
+        {
+            "name": "article",
+            "description": "Operations about Article\n"
         },
         {
             "name": "login",

@@ -7,6 +7,132 @@ info:
     email: 2929712050@qq.com
 basePath: /v1
 paths:
+  /article/:
+    get:
+      tags:
+      - article
+      description: 获取文章列表
+      responses:
+        "200":
+          description: 请求成功
+        "1102":
+          description: 请求出错
+    post:
+      tags:
+      - article
+      description: 发布文章
+      operationId: ArticleController.发布文章
+      parameters:
+      - in: formData
+        name: title
+        description: 文章标题
+        required: true
+        type: string
+        default: hello world
+      - in: formData
+        name: userId
+        description: 用户id
+        required: true
+        type: integer
+        format: int64
+        default: "0"
+      - in: formData
+        name: content
+        description: 文章内容
+        required: true
+        type: string
+        default: hello world content
+      - in: formData
+        name: publishAt
+        description: 发布日期时间戳
+        required: true
+        type: integer
+        format: int64
+        default: ""
+      - in: formData
+        name: categoryId
+        description: 分类id
+        required: true
+        type: integer
+        format: int64
+        default: ""
+      - in: formData
+        name: tagId
+        description: 标签id
+        required: true
+        type: integer
+        format: int64
+        default: "100"
+      responses:
+        "200":
+          description: 请求成功
+        "1101":
+          description: 外部传入参数错误
+        "1102":
+          description: 请求出错
+  /article/{id}:
+    get:
+      tags:
+      - article
+      description: 删除文章
+      responses:
+        "200":
+          description: 请求成功
+        "1102":
+          description: 请求出错
+    put:
+      tags:
+      - article
+      description: 更新文章
+      operationId: ArticleController.更新文章
+      parameters:
+      - in: formData
+        name: title
+        description: 文章标题
+        required: true
+        type: string
+        default: hello world
+      - in: formData
+        name: userId
+        description: 用户id
+        required: true
+        type: integer
+        format: int64
+        default: "0"
+      - in: formData
+        name: content
+        description: 文章内容
+        required: true
+        type: string
+        default: hello world content
+      - in: formData
+        name: publishAt
+        description: 发布日期时间戳
+        required: true
+        type: integer
+        format: int64
+        default: ""
+      - in: formData
+        name: categoryId
+        description: 分类id
+        required: true
+        type: integer
+        format: int64
+        default: ""
+      - in: formData
+        name: tagId
+        description: 标签id
+        required: true
+        type: integer
+        format: int64
+        default: "100"
+      responses:
+        "200":
+          description: 请求成功
+        "1101":
+          description: 外部传入参数错误
+        "1102":
+          description: 请求出错
   /category/:
     get:
       tags:
@@ -15,8 +141,6 @@ paths:
       responses:
         "200":
           description: 请求成功
-        "1101":
-          description: 外部传入参数错误
         "1102":
           description: 请求出错
     post:
@@ -41,6 +165,15 @@ paths:
         "1109":
           description: 分类已存在
   /category/{id}:
+    get:
+      tags:
+      - category
+      description: 获取单个分类数据
+      responses:
+        "200":
+          description: 请求成功
+        "1102":
+          description: 请求出错
     put:
       tags:
       - category
@@ -145,6 +278,15 @@ paths:
         "1108":
           description: 标签名已存在
   /tag/{id}:
+    get:
+      tags:
+      - tag
+      description: 获取单个标签
+      responses:
+        "200":
+          description: 请求成功
+        "1102":
+          description: 请求出错
     put:
       tags:
       - tag
@@ -180,8 +322,6 @@ paths:
       responses:
         "200":
           description: 请求成功
-        "1101":
-          description: 外部传入参数错误
         "1102":
           description: 请求出错
     post:
@@ -212,6 +352,15 @@ paths:
         "1103":
           description: 用户名已存在
   /user/{id}:
+    get:
+      tags:
+      - user
+      description: 获取单个用户
+      responses:
+        "200":
+          description: 请求成功
+        "1102":
+          description: 请求出错
     put:
       tags:
       - user
@@ -239,10 +388,6 @@ paths:
           description: 请求出错
         "1103":
           description: 用户名已存在
-definitions:
-  date:
-    title: date
-    type: object
 tags:
 - name: user
   description: |
@@ -253,6 +398,9 @@ tags:
 - name: category
   description: |
     Operations about Category
+- name: article
+  description: |
+    Operations about Article
 - name: login
   description: |
     Operations about Logout

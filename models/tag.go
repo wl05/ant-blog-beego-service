@@ -27,6 +27,14 @@ func GetTags() (tags []Tag, err error) {
 	return _tags, _err
 }
 
+func GetTagById(id int) (tag Tag, err error) {
+	var _tag Tag
+	o := orm.NewOrm()
+	act := o.Raw("select * from tag where id = ?", id)
+	_err := act.QueryRow(&_tag)
+	return _tag, _err
+}
+
 func GetTagByTagName(tagName string) (tag Tag, err error) {
 	DB := orm.NewOrm()
 	DB.Using("default")
